@@ -1,0 +1,92 @@
+import json
+import os
+
+TRANSLATIONS = {
+    "fr": {
+        "title": "SYSCOHADA - Clôture Financière 📊",
+        "sidebar_header": "Configuration ⚙️",
+        "select_lang": "Choisir la langue",
+        "upload_section": "Chargement des données 📥",
+        "upload_btn": "Charger votre Balance (CSV)",
+        "sample_data": "Utiliser le modèle de démonstration",
+        "dashboard": "Tableau de Bord 📈",
+        "statements": "États Financiers 📁",
+        "bilan": "Bilan (Actif/Passif)",
+        "resultat": "Compte de Résultat",
+        "tft": "Flux de Trésorerie (TFT)",
+        "indicators": "Indicateurs de Performance 🚀",
+        "alert_low_liquidity": "Attention: Liquidité critique ! ⚠️",
+        "alert_good_profit": "Bravo: Rentabilité en hausse ! 🌟",
+        "revenue": "Chiffre d'Affaires",
+        "net_profit": "Résultat Net",
+        "solvency": "Solvabilité",
+        "working_capital": "Fonds de Roulement",
+        "no_data": "Veuillez charger des données pour commencer."
+    },
+    "en": {
+        "title": "SYSCOHADA - Financial Closing 📊",
+        "sidebar_header": "Configuration ⚙️",
+        "select_lang": "Choose Language",
+        "upload_section": "Data Upload 📥",
+        "upload_btn": "Upload your Trial Balance (CSV)",
+        "sample_data": "Use Model/Demo Data",
+        "dashboard": "Dashboard 📈",
+        "statements": "Financial Statements 📁",
+        "bilan": "Balance Sheet",
+        "resultat": "Income Statement",
+        "tft": "Cash Flow Statement (TFT)",
+        "indicators": "Performance Indicators 🚀",
+        "alert_low_liquidity": "Warning: Critical liquidity! ⚠️",
+        "alert_good_profit": "Well done: Increasing profitability! 🌟",
+        "revenue": "Revenue",
+        "net_profit": "Net Profit",
+        "solvency": "Solvency",
+        "working_capital": "Working Capital",
+        "no_data": "Please upload data to begin."
+    },
+    "ru": {
+        "title": "SYSCOHADA - Финансовое закрытие 📊",
+        "sidebar_header": "Конфигурация ⚙️",
+        "select_lang": "Выберите язык",
+        "upload_section": "Загрузка данных 📥",
+        "upload_btn": "Загрузить пробный баланс (CSV)",
+        "sample_data": "Использовать демо-данные",
+        "dashboard": "Панель управления 📈",
+        "statements": "Финансовая отчетность 📁",
+        "bilan": "Балансовый отчет",
+        "resultat": "Отчет о прибылях и убытках",
+        "tft": "Отчет о движении денежных средств",
+        "indicators": "Показатели эффективности 🚀",
+        "alert_low_liquidity": "Предупреждение: Критическая ликвидность! ⚠️",
+        "alert_good_profit": "Отлично: Рентабельность растет! 🌟",
+        "revenue": "Выручка",
+        "net_profit": "Чистая прибыль",
+        "solvency": "Платежеспособность",
+        "working_capital": "Оборотный капитал",
+        "no_data": "Пожалуйста, загрузите данные для начала."
+    },
+    "zh": {
+        "title": "SYSCOHADA - 财务结账 📊",
+        "sidebar_header": "配置 ⚙️",
+        "select_lang": "选择语言",
+        "upload_section": "数据上传 📥",
+        "upload_btn": "上传试算平衡表 (CSV)",
+        "sample_data": "使用演示数据",
+        "dashboard": "仪表板 📈",
+        "statements": "财务报表 📁",
+        "bilan": "资产负债表",
+        "resultat": "利润表",
+        "tft": "现金流量表 (TFT)",
+        "indicators": "绩效指标 🚀",
+        "alert_low_liquidity": "警告：流动性告急！⚠️",
+        "alert_good_profit": "太棒了：盈利能力提升！🌟",
+        "revenue": "营业收入",
+        "net_profit": "净利润",
+        "solvency": "偿债能力",
+        "working_capital": "营运资本",
+        "no_data": "请上传数据以开始。"
+    }
+}
+
+def get_text(lang, key):
+    return TRANSLATIONS.get(lang, TRANSLATIONS["fr"]).get(key, key)
