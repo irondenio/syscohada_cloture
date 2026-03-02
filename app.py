@@ -57,48 +57,75 @@ if df is not None:
         col1, col2, col3, col4 = st.columns(4)
         col1.metric(get_text(st.session_state.lang, "revenue"), f"{results['revenue']:,.0f} FCFA", "📈")
         col2.metric(get_text(st.session_state.lang, "net_profit"), f"{results['net_profit']:,.0f} FCFA", "💰")
-        col3.metric(get_text(st.session_state.lang, "working_capital"), f"{results['working_capital']:,.0f} FCFA", "🏗️")
-        col4.metric("Cash 🏦", f"{results['cash']:,.0f} FCFA", "🌊")
+        col3.metric(get_text(st.session_state.lang, "ebitda"), f"{results['ebitda']:,.0f} FCFA", "⚡")
+        col4.metric(get_text(st.session_state.lang, "working_capital"), f"{results['working_capital']:,.0f} FCFA", "🏗️")
         
         # Alerts Seciton
         st.divider()
-        st.subheader("Alertes & Notifications 🔔")
+        st.subheader(get_text(st.session_state.lang, "industrial_alerts"))
         
-        if results['cash'] < 5000:
-            st.error(f"{get_text(st.session_state.lang, 'alert_low_liquidity')} 🔥")
-        else:
-            st.success("Liquidité sous contrôle ✅")
+        alert_col1, alert_col2 = st.columns(2)
+        with alert_col1:
+            if results['cash'] < 50000000:
+                st.error(f"{get_text(st.session_state.lang, 'alert_low_liquidity')} 🔥")
+            else:
+                st.success("Liquidité sous contrôle ✅")
             
-        if results['net_profit'] > 10000:
-            st.balloons()
-            st.info(f"{get_text(st.session_state.lang, 'alert_good_profit')} 🏆")
+            if results['net_profit'] > 50000000:
+                st.balloons()
+                st.info(f"{get_text(st.session_state.lang, 'alert_good_profit')} 🏆")
+        
+        with alert_col2:
+            if results['maintenance_costs'] > results['revenue'] * 0.05:
+                st.warning(get_text(st.session_state.lang, "maintenance_alert"))
             
-        st.area_chart(pd.DataFrame({
-            "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-            "Revenue": [results['revenue']*0.8, results['revenue']*0.9, results['revenue'], results['revenue']*1.1, results['revenue']*1.05, results['revenue']]
+            debt_ratio = results['debt'] / max(1, results['equity'])
+            if debt_ratio > 0.5:
+                st.warning(f"{get_text(st.session_state.lang, 'excess_debt')} (Ratio: {debt_ratio:.2f})")
+
+        st.line_chart(pd.DataFrame({
+            "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "EBITDA": [results['ebitda']*r for r in [0.9, 0.95, 1.0, 1.1, 1.2, 1.15, 1.1, 1.25, 1.3, 1.2, 1.1, 1.0]],
+            "Net Profit": [results['net_profit']*r for r in [0.8, 0.85, 1.0, 1.05, 1.1, 1.05, 1.0, 1.15, 1.2, 1.1, 1.0, 0.9]]
         }).set_index("Month"))
 
     with tab2:
         st.subheader(get_text(st.session_state.lang, "statements"))
         exp1 = st.expander(get_text(st.session_state.lang, "bilan"))
         with exp1:
-            st.write("--- ACTIF ---")
-            st.write(f"Immobilisations: {results['fixed_assets']:,.0f}")
-            st.write(f"Actif Circulant: {results['current_assets']:,.0f}")
-            st.write("--- PASSIF ---")
-            st.write(f"Capitaux Propres & Dettes LMT: {results['equity_debt']:,.0f}")
+            bil_col1, bil_col2 = st.columns(2)
+            with bil_col1:
+                st.write("--- ACTIF ---")
+                st.write(f"Immobilisations: {results['fixed_assets']:,.0f}")
+                st.write(f"Stocks: {results['inventory']:,.0f}")
+                st.write(f"Trésorerie: {results['cash']:,.0f}")
+                st.write(f"TOTAL ACTIF: {results['total_assets']:,.0f}")
+            with bil_col2:
+                st.write("--- PASSIF ---")
+                st.write(f"Capitaux Propres: {results['equity']:,.0f}")
+                st.write(f"Dettes LMT: {results['debt']:,.0f}")
+                st.write(f"RÉSULTAT NET: {results['net_profit']:,.0f}")
             
         exp2 = st.expander(get_text(st.session_state.lang, "resultat"))
         with exp2:
-            st.write(f"Produits (7): {results['revenue']:,.0f}")
-            st.write(f"Charges (6): {results['expenses']:,.0f}")
+            st.write(f"CA (Produits 70): {results['revenue']:,.0f}")
+            st.write(f"EBITDA: {results['ebitda']:,.0f}")
+            st.write(f"Amortissements (68): {results['ebitda'] - results['ebit']:,.0f}")
             st.write(f"RÉSULTAT NET: {results['net_profit']:,.0f}")
 
     with tab3:
         st.subheader(get_text(st.session_state.lang, "indicators"))
-        st.write(f"⚡ {get_text(st.session_state.lang, 'solvency')}: {results['equity_debt']/max(1, results['fixed_assets']):.2f}")
-        st.progress(min(1.0, results['net_profit']/max(1, results['revenue'])))
-        st.write(f"🎭 Rentabilité: {(results['net_profit']/max(1, results['revenue'])*100):.1f}%")
+        ind_col1, ind_col2 = st.columns(2)
+        with ind_col1:
+            st.write(f"⚡ {get_text(st.session_state.lang, 'op_margin')}: {(results['ebit']/max(1, results['revenue'])*100):.1f}%")
+            st.progress(min(1.0, results['ebit']/max(1, results['revenue'])))
+            
+            st.write(f"🎭 {get_text(st.session_state.lang, 'debt_equity')}: {(results['debt']/max(1, results['equity'])):.2f}")
+            st.progress(min(1.0, results['debt']/max(1, results['equity'])))
+        
+        with ind_col2:
+            st.write(f"⚙️ {get_text(st.session_state.lang, 'asset_turnover')}: {(results['revenue']/max(1, results['total_assets'])):.2f}")
+            st.progress(min(1.0, results['revenue']/max(1, results['total_assets'])))
 
 else:
     st.info(get_text(st.session_state.lang, "no_data"))

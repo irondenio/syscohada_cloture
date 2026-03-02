@@ -21,6 +21,13 @@ TRANSLATIONS = {
         "net_profit": "Résultat Net",
         "solvency": "Solvabilité",
         "working_capital": "Fonds de Roulement",
+        "ebitda": "EBITDA (Excédent Brut d'Exploitation)",
+        "op_margin": "Marge Opérationnelle",
+        "debt_equity": "Ratio d'Endettement",
+        "asset_turnover": "Rotation des Actifs",
+        "industrial_alerts": "Alertes Industrielles 🏭",
+        "maintenance_alert": "Budget Maintenance à surveiller 🛠️",
+        "excess_debt": "Endettement élevé ! Prudence ⚠️",
         "no_data": "Veuillez charger des données pour commencer."
     },
     "en": {
@@ -42,6 +49,13 @@ TRANSLATIONS = {
         "net_profit": "Net Profit",
         "solvency": "Solvency",
         "working_capital": "Working Capital",
+        "ebitda": "EBITDA",
+        "op_margin": "Operating Margin",
+        "debt_equity": "Debt-to-Equity",
+        "asset_turnover": "Asset Turnover",
+        "industrial_alerts": "Industrial Alerts 🏭",
+        "maintenance_alert": "Monitor maintenance budget 🛠️",
+        "excess_debt": "High debt levels! Caution ⚠️",
         "no_data": "Please upload data to begin."
     },
     "ru": {
@@ -63,6 +77,13 @@ TRANSLATIONS = {
         "net_profit": "Чистая прибыль",
         "solvency": "Платежеспособность",
         "working_capital": "Оборотный капитал",
+        "ebitda": "EBITDA",
+        "op_margin": "Операционная маржа",
+        "debt_equity": "Коэффициент долга к капиталу",
+        "asset_turnover": "Оборачиваемость активов",
+        "industrial_alerts": "Промышленные оповещения 🏭",
+        "maintenance_alert": "Проверьте бюджет на обслуживание 🛠️",
+        "excess_debt": "Высокий уровень долга! Осторожно ⚠️",
         "no_data": "Пожалуйста, загрузите данные для начала."
     },
     "zh": {
@@ -84,6 +105,13 @@ TRANSLATIONS = {
         "net_profit": "净利润",
         "solvency": "偿债能力",
         "working_capital": "营运资本",
+        "ebitda": "税息折旧及摊销前利润 (EBITDA)",
+        "op_margin": "营业利润率",
+        "debt_equity": "债务权益比",
+        "asset_turnover": "资产周转率",
+        "industrial_alerts": "工业警报 🏭",
+        "maintenance_alert": "监控维护预算 🛠️",
+        "excess_debt": "债务水平高！请注意 ⚠️",
         "no_data": "请上传数据以开始。"
     }
 }
